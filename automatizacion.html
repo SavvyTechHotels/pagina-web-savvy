@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>WhatsApp Business & Automatización — Savvy Tech Hotels</title>
+  <meta name="description" content="Automatiza la comunicación con tus huéspedes en cada fase de la estancia. Ahorra un 70% de tiempo a tu equipo con WhatsApp Business API."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0e4159',
+            accent:  '#A5C9D7',
+            surface: '#F6F3F1',
+          },
+          fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+        }
+      }
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; }
+
+    /* ── Mega menu ── */
+    .mega-menu-wrapper { position: relative; display: inline-flex; }
+    .mega-menu {
+      position: absolute; top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      width: 680px;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(14,65,89,0.16), 0 0 0 1px rgba(226,232,240,0.8);
+      padding: 1.25rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      pointer-events: none; z-index: 200;
+    }
+    .mega-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+    .mega-menu-wrapper:hover .mega-menu,
+    .mega-menu-wrapper.open .mega-menu {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .mega-chevron { font-size: 18px !important; line-height: 1 !important; transition: transform 0.2s ease; vertical-align: middle; }
+    .mega-menu-wrapper:hover .mega-chevron,
+    .mega-menu-wrapper.open .mega-chevron { transform: rotate(180deg); }
+
+    /* ── Mobile menu ── */
+    #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.32s ease, opacity 0.25s ease; }
+    #mobile-menu.open { max-height: 1200px; opacity: 1; }
+
+    /* ── Hero particles ── */
+    #particles-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.12s; }
+    .reveal-d2 { transition-delay: 0.24s; }
+    .reveal-d3 { transition-delay: 0.36s; }
+    .reveal-d4 { transition-delay: 0.48s; }
+
+    /* ── Hero glow ── */
+    .hero-glow {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+
+    /* ── Section label ── */
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 5rem; }
+    .section-label-line { width: 2rem; height: 1px; background: #A5C9D7; }
+    .section-label-text { font-size: 10px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #A5C9D7; }
+
+    /* ── WA chat bubbles ── */
+    .wa-bubble-out {
+      background: #dcf8c6;
+      border-radius: 18px 18px 4px 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .wa-bubble-in {
+      background: #fff;
+      border-radius: 18px 18px 18px 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* ── Donut ── */
+    .donut-ring {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(#A5C9D7 0% 80%, rgba(255,255,255,0.1) 80% 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .donut-hole {
+      width: 108px; height: 108px;
+      border-radius: 50%;
+      background: #0d3a52;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 overflow-x-hidden">
+
+<!-- ══════════════════════════════════════════════════════
+     NAV — Siempre blanco sólido
+     ══════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <a href="index.html" class="flex items-center gap-3 shrink-0">
+      <img src="img/LOGO_LOGO.svg" alt="Savvy Tech Hotels" class="h-8 md:h-8 w-auto object-contain">
+      <img src="img/LOGO_LETRA.svg" alt="Savvy Tech Hotels" class="h-8 md:h-8 w-auto object-contain">
+    </a>
+
+    <div class="hidden md:flex items-center gap-0.5">
+      <div class="mega-menu-wrapper">
+        <button class="px-4 py-2 text-sm font-medium text-primary bg-primary/4 rounded-sm hover:bg-primary/4 transition-all inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+          Funcionalidades
+          <span class="material-symbols-outlined mega-chevron">expand_more</span>
+        </button>
+        <div class="mega-menu" role="menu" aria-label="Funcionalidades">
+          <div class="grid grid-cols-2 gap-2">
+            <a href="guest-app.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">smartphone</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Up/Cross-Selling</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">WebApp para vender más durante la estancia.</p></div>
+            </a>
+            <a href="restauracion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">restaurant_menu</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Motor de Reservas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Restauración integrada con la estancia.</p></div>
+            </a>
+            <a href="crm.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">hub</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">CRM</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Historial y preferencias del huésped.</p></div>
+            </a>
+            <a href="automatizacion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">send</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">WhatsApp Business</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Comunicación automática en cada fase.</p></div>
+            </a>
+            <a href="experiencias.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">local_activity</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Proveedores de Experiencias</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Actividades locales para el huésped.</p></div>
+            </a>
+            <a href="resenas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">star_rate</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Reseñas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Reseñas 5 estrellas en el momento clave.</p></div>
+            </a>
+            <a href="operaciones.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">groups</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Comunicación Interna</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Coordinación entre departamentos.</p></div>
+            </a>
+            <a href="campanas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">campaign</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Campañas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Marketing directo en el momento ideal.</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="integraciones.html" class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Integraciones</a>
+      <a href="pricing.html"       class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Pricing</a>
+      <a href="blog.html"          class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Blog</a>
+      <a href="nosotros.html"      class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Nosotros</a>
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="ml-3 bg-primary text-white px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm tracking-wide">
+        Reservar Demo
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden p-2 rounded-sm text-primary hover:bg-primary/5 transition-colors">
+      <span id="menu-icon" class="material-symbols-outlined text-2xl">menu</span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100 px-6 pb-6">
+    <div>
+      <button id="mobile-sol-btn" class="w-full flex items-center justify-between py-3.5 text-sm font-medium text-primary border-b border-slate-100" aria-expanded="false">
+        Funcionalidades
+        <span id="mobile-sol-icon" class="material-symbols-outlined text-slate-400 transition-transform" style="font-size:20px">expand_more</span>
+      </button>
+      <div id="mobile-sol-menu" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;">
+        <div class="pl-2 py-2 space-y-0.5">
+          <a href="guest-app.html"      class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">smartphone</span>Up/Cross-Selling</a>
+          <a href="restauracion.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">restaurant_menu</span>Motor de Reservas</a>
+          <a href="crm.html"            class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">hub</span>CRM</a>
+          <a href="automatizacion.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">send</span>WhatsApp Business</a>
+          <a href="experiencias.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">local_activity</span>Experiencias</a>
+          <a href="resenas.html"        class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">star_rate</span>Reseñas</a>
+          <a href="operaciones.html"    class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">groups</span>Comunicación Interna</a>
+          <a href="campanas.html"       class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">campaign</span>Campañas</a>
+        </div>
+      </div>
+    </div>
+    <a href="integraciones.html" class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Integraciones</a>
+    <a href="pricing.html"       class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Pricing</a>
+    <a href="blog.html"          class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Blog</a>
+    <a href="nosotros.html"      class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Nosotros</a>
+    <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+       class="mt-4 block bg-primary text-white px-5 py-3.5 rounded-sm text-sm font-semibold text-center hover:bg-primary/90 transition-colors tracking-wide">
+      Reservar Demo
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════
+     HERO — Fondo claro #F6F3F1
+     ══════════════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16" style="background: #F6F3F1;">
+
+  <!-- Contenido centrado -->
+  <div class="relative w-full max-w-4xl mx-auto px-6 md:px-12 py-32 text-center">
+
+    <!-- Eyebrow -->
+    <div class="inline-flex items-center gap-2.5 px-5 py-1.5 rounded-sm border border-accent/40 text-primary text-[10px] font-light uppercase tracking-[0.32em] mb-12">
+      <span class="w-1.5 h-1.5 rounded-sm bg-accent inline-block"></span>
+      Funcionalidades · WhatsApp Business
+    </div>
+
+    <!-- H1 — Montserrat thin -->
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-thin leading-[1.08] tracking-tighter text-primary mb-8">
+      Tu recepción no escala.<br>
+      <em class="font-light" style="font-style: italic; color: rgba(165,201,215,0.88);">Tu comunicación, sí.</em>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="text-base font-light max-w-2xl mx-auto mb-8 leading-loose tracking-wide" style="color:rgba(71,85,105,0.7);">
+      Automatiza las respuestas frecuentes y las notificaciones de cada estancia en nombre de tu hotel. Ahorra un <span class="font-normal" style="color:rgba(14,65,89,0.85);">70% del tiempo</span> de tu equipo y permite que solo intervengan cuando el huésped realmente los necesita.
+    </p>
+
+    <!-- WA badge -->
+    <div class="inline-flex items-center gap-3 px-5 py-3 rounded-sm mb-10" style="background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.25);">
+      <svg viewBox="0 0 24 24" fill="#25D366" class="w-5 h-5 shrink-0">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      <span class="text-sm font-light" style="color:rgba(14,65,89,0.75);">Powered by WhatsApp Business API oficial</span>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="bg-primary hover:bg-primary/90 text-white px-9 py-4 rounded-sm font-semibold text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-primary/20 hover:-translate-y-0.5 text-center">
+        Solicitar Demo Gratuita
+      </a>
+      <a href="#hibrido"
+         class="border border-primary/25 hover:border-primary/50 text-primary/70 hover:text-primary px-9 py-4 rounded-sm font-light text-sm tracking-widest uppercase transition-all duration-300 text-center">
+        Ver cómo funciona →
+      </a>
+    </div>
+
+    <!-- Stats row -->
+    <div class="mt-20 grid grid-cols-3 gap-6 max-w-xl mx-auto">
+      <div class="text-center">
+        <div class="text-4xl font-thin text-primary mb-2 tracking-tighter">-70%</div>
+        <div class="text-[10px] uppercase tracking-[0.25em] font-light" style="color:rgba(71,85,105,0.5);">Llamadas a recepción</div>
+      </div>
+      <div class="text-center border-x border-slate-200">
+        <div class="text-4xl font-thin text-accent mb-2 tracking-tighter">&lt; 2 min</div>
+        <div class="text-[10px] uppercase tracking-[0.25em] font-light" style="color:rgba(71,85,105,0.5);">Tiempo de respuesta</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-thin text-primary mb-2 tracking-tighter">80%</div>
+        <div class="text-[10px] uppercase tracking-[0.25em] font-light" style="color:rgba(71,85,105,0.5);">Consultas resueltas solas</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="color:rgba(14,65,89,0.25);">
+    <span class="text-[9px] font-light uppercase tracking-[0.4em]">Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-primary/25 to-transparent"></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     EL HÍBRIDO PERFECTO — IA + Humano
+     ══════════════════════════════════════════════════════ -->
+<section id="hibrido" class="py-36 md:py-44 px-6 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Heading -->
+    <div class="text-center mb-20 md:mb-28">
+      <div class="reveal inline-flex items-center gap-4 mb-12">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">El Modelo Savvy</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="reveal text-4xl md:text-5xl lg:text-6xl font-thin tracking-tighter text-primary leading-[1.08] mb-8">
+        El híbrido perfecto:<br>
+        <em style="font-style:italic; color:#A5C9D7; font-weight:300;">IA + Humano.</em>
+      </h2>
+      <p class="reveal reveal-d1 text-sm md:text-base font-light leading-loose max-w-xl mx-auto" style="color:rgba(71,85,105,0.6);">
+        No es todo o nada. El sistema resuelve automáticamente lo predecible y avisa a tu equipo cuando la situación lo requiere.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+
+      <!-- Donut + copy -->
+      <div class="reveal">
+        <div class="flex flex-col sm:flex-row items-center gap-10">
+
+          <!-- Donut -->
+          <div class="shrink-0">
+            <div class="donut-ring shadow-2xl shadow-accent/20">
+              <div class="donut-hole">
+                <span class="text-3xl font-thin text-white tracking-tighter">80%</span>
+                <span class="text-white/55 text-xs mt-0.5 font-light">Auto</span>
+              </div>
+            </div>
+            <p class="text-center text-xs text-slate-400 font-light mt-3 leading-snug">Consultas resueltas<br>sin intervención humana</p>
+          </div>
+
+          <!-- Stats list -->
+          <div class="space-y-6">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-sm bg-accent/15 flex items-center justify-center shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+              </div>
+              <div>
+                <p class="font-medium text-primary text-sm mb-1">80% resuelto por la IA</p>
+                <p class="text-slate-500 text-sm font-light leading-relaxed">WiFi, horarios, ubicación de amenities, procedimientos de check-in, etc.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-sm bg-[#25D366]/12 flex items-center justify-center shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-[#25D366] text-sm">support_agent</span>
+              </div>
+              <div>
+                <p class="font-medium text-primary text-sm mb-1">20% derivado al equipo</p>
+                <p class="text-slate-500 text-sm font-light leading-relaxed">Solicitudes complejas, quejas o peticiones especiales que merecen atención humana.</p>
+              </div>
+            </div>
+            <div class="mt-2">
+              <span class="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-primary text-white text-sm font-light shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-accent text-base">notifications_active</span>
+                Intervención Humana bajo demanda
+              </span>
+              <p class="text-slate-400 text-xs mt-2 ml-1 font-light">El equipo recibe una alerta instantánea en el panel cuando el huésped necesita respuesta real.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WA mockup chat -->
+      <div class="reveal reveal-d2">
+        <div class="max-w-xs mx-auto">
+          <!-- Phone frame -->
+          <div class="rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/20 border border-slate-200">
+
+            <!-- WA header -->
+            <div class="px-4 py-3 flex items-center gap-3" style="background: #075e54;">
+              <div class="w-9 h-9 rounded-sm bg-accent/30 flex items-center justify-center">
+                <img src="img/logo_sin_letras.png" alt="Hotel" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
+              </div>
+              <div>
+                <p class="text-white font-medium text-sm leading-tight">Hotel Savvy Barcelona</p>
+                <p class="text-green-300 text-xs font-light">en línea</p>
+              </div>
+              <div class="ml-auto flex gap-3">
+                <span class="material-symbols-outlined text-white/70 text-base">videocam</span>
+                <span class="material-symbols-outlined text-white/70 text-base">phone</span>
+              </div>
+            </div>
+
+            <!-- Chat area -->
+            <div class="px-4 py-4 space-y-3" style="background: #ece5dd; min-height: 280px;">
+
+              <!-- Auto message -->
+              <div class="wa-bubble-in px-4 py-3 max-w-[85%]">
+                <p class="text-xs text-[#075e54] font-semibold mb-1">Hotel Savvy Barcelona</p>
+                <p class="text-slate-700 text-sm leading-relaxed">¡Hola María! Bienvenida. Tu habitación 214 estará lista a las 14:00h. Aquí tienes tu acceso a la webapp: <span class="text-blue-500 underline text-xs">savvy.app/maria</span></p>
+                <p class="text-slate-400 text-[10px] text-right mt-1">10:32 · <span class="material-symbols-outlined text-[10px] text-blue-400">done_all</span></p>
+                <div class="mt-1.5 inline-flex items-center gap-1 bg-[#e1f3fb] rounded-sm px-2 py-0.5">
+                  <span class="material-symbols-outlined text-[#25D366] text-xs">smart_toy</span>
+                  <span class="text-[10px] text-slate-500 font-medium">Respuesta automática</span>
+                </div>
+              </div>
+
+              <!-- Guest reply -->
+              <div class="wa-bubble-out px-4 py-3 max-w-[80%] ml-auto">
+                <p class="text-slate-700 text-sm">¿A qué hora abre el spa?</p>
+                <p class="text-slate-400 text-[10px] text-right mt-1">10:41 · <span class="material-symbols-outlined text-[10px] text-blue-400">done_all</span></p>
+              </div>
+
+              <!-- Auto response -->
+              <div class="wa-bubble-in px-4 py-3 max-w-[85%]">
+                <p class="text-xs text-[#075e54] font-semibold mb-1">Hotel Savvy Barcelona</p>
+                <p class="text-slate-700 text-sm leading-relaxed">El Spa abre de 9:00 a 21:00h. Puedes reservar tu tratamiento directamente desde la webapp o responder aquí. ¿Te ayudo con algo más?</p>
+                <p class="text-slate-400 text-[10px] text-right mt-1">10:41 · <span class="material-symbols-outlined text-[10px] text-blue-400">done_all</span></p>
+                <div class="mt-1.5 inline-flex items-center gap-1 bg-[#e1f3fb] rounded-sm px-2 py-0.5">
+                  <span class="material-symbols-outlined text-[#25D366] text-xs">smart_toy</span>
+                  <span class="text-[10px] text-slate-500 font-medium">Respuesta automática</span>
+                </div>
+              </div>
+
+              <!-- Complex request -->
+              <div class="wa-bubble-out px-4 py-3 max-w-[80%] ml-auto">
+                <p class="text-slate-700 text-sm">Necesito una cuna urgente para mi habitación</p>
+                <p class="text-slate-400 text-[10px] text-right mt-1">11:05 · <span class="material-symbols-outlined text-[10px] text-blue-400">done_all</span></p>
+              </div>
+
+              <!-- Escalation badge -->
+              <div class="flex items-center gap-2 py-1">
+                <div class="flex-1 h-px bg-slate-300/60"></div>
+                <span class="text-[10px] text-slate-400 font-medium bg-white/70 px-2 py-0.5 rounded-sm">Alerta al equipo</span>
+                <div class="flex-1 h-px bg-slate-300/60"></div>
+              </div>
+
+              <div class="wa-bubble-in px-4 py-3 max-w-[85%]">
+                <p class="text-xs text-[#075e54] font-semibold mb-1">Marta · Recepción</p>
+                <p class="text-slate-700 text-sm leading-relaxed">¡Por supuesto María! Te la llevamos en 10 minutos.</p>
+                <p class="text-slate-400 text-[10px] text-right mt-1">11:07 · <span class="material-symbols-outlined text-[10px] text-blue-400">done_all</span></p>
+                <div class="mt-1.5 inline-flex items-center gap-1 bg-orange-50 rounded-sm px-2 py-0.5">
+                  <span class="material-symbols-outlined text-orange-400 text-xs">support_agent</span>
+                  <span class="text-[10px] text-slate-500 font-medium">Respuesta humana</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     CTA FINAL — Fondo primario oscuro
+     ══════════════════════════════════════════════════════ -->
+<section class="py-36 md:py-44 px-6 bg-primary relative overflow-hidden">
+
+  <!-- Glow decorativo -->
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(165,201,215,0.12) 0%, transparent 70%);"></div>
+
+  <!-- Rejilla sutil -->
+  <div class="absolute inset-0 opacity-[0.04]"
+       style="background-image: linear-gradient(rgba(165,201,215,1) 1px, transparent 1px), linear-gradient(90deg, rgba(165,201,215,1) 1px, transparent 1px); background-size: 60px 60px;">
+  </div>
+
+  <div class="max-w-3xl mx-auto text-center reveal relative z-10">
+
+    <!-- WA icon -->
+    <div class="w-16 h-16 rounded-sm flex items-center justify-center mx-auto mb-10 shadow-lg shadow-[#25D366]/20" style="background: #25D366;">
+      <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </div>
+
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-thin tracking-tighter text-white leading-[1.08] mb-8">
+      Deja de responder preguntas.<br>
+      <em style="font-style:italic; color:rgba(165,201,215,0.90); font-weight:300;">Empieza a crear experiencias.</em>
+    </h2>
+
+    <p class="text-base font-light text-white/75 max-w-xl mx-auto mb-14 leading-loose">
+      En 30 minutos te mostramos el panel completo de automatización y cómo se integra con tu PMS actual. Sin instalaciones, sin fricciones.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="bg-white hover:bg-surface text-primary px-10 py-4 rounded-sm font-semibold text-sm tracking-widest uppercase transition-all duration-300 shadow-2xl shadow-black/30 hover:-translate-y-0.5 text-center inline-flex items-center gap-3">
+        <span class="material-symbols-outlined text-xl">calendar_today</span>
+        Solicitar Demo Gratuita
+      </a>
+      <a href="crm.html"
+         class="border border-white/30 hover:border-white/55 text-white/80 hover:text-white px-10 py-4 rounded-sm font-light text-sm tracking-widest uppercase transition-all duration-300 text-center inline-flex items-center gap-3">
+        <span class="material-symbols-outlined text-xl">hub</span>
+        Ver el CRM
+      </a>
+    </div>
+
+    <p class="mt-16 text-white/25 text-[10px] font-light uppercase tracking-[0.3em]">
+      Ahorra hasta un 70% de tiempo operativo
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER — Fondo primario oscuro
+     ══════════════════════════════════════════════════════ -->
+<footer class="bg-primary pt-20 pb-10 px-6 border-t border-white/8">
+  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+
+    <div class="col-span-2 md:col-span-1">
+      <div class="flex items-center gap-3 mb-6">
+      <img src="img/LOGO_DEBAJO_BLANCO.svg" alt="Savvy Tech Hotels" class="h-14 md:h-20 w-auto object-contain mb-6 ml-4">      </div>
+      <p class="text-base font-light leading-relaxed text-white/80">
+        Soberanía digital para hoteleros que no quieren seguir regalando sus huéspedes a las OTAs.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-medium text-white/60 text-xs uppercase tracking-[0.22em] mb-6">Producto</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="guest-app.html">Guest App</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="restauracion.html">Motor de Restauración</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="crm.html">CRM</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="automatizacion.html">Automatización</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="integraciones.html">Integraciones</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-medium text-white/60 text-xs uppercase tracking-[0.22em] mb-6">Compañía</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="#">Nosotros</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="#">Blog</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-medium text-white/60 text-xs uppercase tracking-[0.22em] mb-6">Legal</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="#">Privacidad</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="terminos.html">Términos</a></li>
+        <li><a class="text-white/40 hover:text-white/80 transition-colors" href="aviso-legal.html">Aviso Legal</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto pt-8 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="text-[11px] text-white/25 font-light tracking-wide">© 2026 Savvy Tech Hotels. Todos los derechos reservados.</p>
+    <div class="flex gap-4">
+      <a class="text-white/25 hover:text-white/55 transition-colors" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+      <a class="text-white/25 hover:text-white/55 transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ── Mobile menu ──────────────────────────────────────────
+  const menuBtn    = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon   = document.getElementById('menu-icon');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    menuIcon.textContent = mobileMenu.classList.contains('open') ? 'close' : 'menu';
+  });
+
+  const solBtn  = document.getElementById('mobile-sol-btn');
+  const solMenu = document.getElementById('mobile-sol-menu');
+  const solIcon = document.getElementById('mobile-sol-icon');
+  solBtn.addEventListener('click', () => {
+    const isOpen = solMenu.style.maxHeight && solMenu.style.maxHeight !== '0px';
+    if (isOpen) {
+      solMenu.style.maxHeight = '0'; solMenu.style.opacity = '0';
+      solIcon.style.transform = 'rotate(0deg)'; solBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      solMenu.style.maxHeight = solMenu.scrollHeight + 'px'; solMenu.style.opacity = '1';
+      solIcon.style.transform = 'rotate(180deg)'; solBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // ── Scroll reveal ────────────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Cookie Consent ───────────────────────────────────
+  // Muestra el banner solo si el usuario no ha aceptado aún
+  (function initCookieBanner() {
+    const CONSENT_KEY = 'savvy_cookie_consent';
+
+    // Si ya existe el consentimiento, no mostramos nada
+    if (localStorage.getItem(CONSENT_KEY)) return;
+
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    // Entrada suave 2 segundos después de la carga
+    setTimeout(() => {
+      banner.classList.remove('translate-y-full', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+    }, 2000);
+
+    // Botón Aceptar
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      banner.classList.add('translate-y-full', 'opacity-0');
+
+      // ── TRACKING SCRIPTS ─────────────────────────────
+      // Cargar aquí Google Analytics u otros scripts de terceros
+      // una vez el usuario haya dado su consentimiento explícito.
+      //
+      // Ejemplo:
+      // const gaScript = document.createElement('script');
+      // gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+      // gaScript.async = true;
+      // document.head.appendChild(gaScript);
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag(){ dataLayer.push(arguments); }
+      // gtag('js', new Date());
+      // gtag('config', 'G-XXXXXXXXXX');
+      // ─────────────────────────────────────────────────
+    });
+
+    // Botón Solo esenciales
+    document.getElementById('cookie-reject').addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'essential');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    });
+  })();
+</script>
+<!-- ═══════════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER — Savvy Tech Hotels
+     Aparece 2 s tras la carga. Persiste en localStorage.
+     ═══════════════════════════════════════════════════════════ -->
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Aviso de privacidad y cookies"
+  class="fixed bottom-0 left-0 right-0 z-[9999]
+         translate-y-full opacity-0
+         transition-all duration-700 ease-out"
+>
+  <!-- Línea de acento superior -->
+  <div class="h-px bg-accent w-full"></div>
+
+  <div class="bg-primary text-white px-6 py-5 md:px-10 md:py-6">
+    <div class="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
+      <!-- Copy -->
+      <div class="flex-1 min-w-0">
+        <p class="text-xs tracking-[0.2em] uppercase text-accent font-semibold mb-1">
+          Privacidad &amp; Experiencia
+        </p>
+        <p class="text-sm text-white/80 leading-relaxed max-w-2xl">
+          El lujo también es transparencia. Utilizamos cookies propias y de terceros para mejorar su navegación, personalizar contenidos y analizar el uso del sitio. Puede gestionar sus preferencias en cualquier momento.
+          <a href="/politica-de-privacidad.html" class="underline underline-offset-2 text-white hover:text-accent transition-colors duration-200 ml-1">
+            Leer política
+          </a>
+        </p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex flex-col sm:flex-row gap-2 shrink-0 mt-1 md:mt-0">
+        <button
+          id="cookie-reject"
+          class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold
+                 border border-white/30 text-white/70
+                 hover:border-white/60 hover:text-white
+                 transition-all duration-200 cursor-pointer"
+        >
+          Solo esenciales
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold
+                 bg-accent text-primary
+                 hover:bg-white hover:text-primary
+                 transition-all duration-200 cursor-pointer"
+        >
+          Aceptar todo
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Cookie Consent Script ──────────────────────────────────────────────
+     Separado del script principal para que el DOM del banner ya exista.
+     ──────────────────────────────────────────────────────────────────── -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const CONSENT_KEY = 'savvy_cookie_consent';
+    const banner      = document.getElementById('cookie-banner');
+    const btnAccept   = document.getElementById('cookie-accept');
+    const btnReject   = document.getElementById('cookie-reject');
+
+    // Si ya existe consentimiento previo, no mostramos el banner
+    if (!banner || localStorage.getItem(CONSENT_KEY)) return;
+
+    // Entrada suave 2 segundos después de que el DOM esté listo
+    setTimeout(() => {
+      banner.classList.remove('translate-y-full', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+    }, 2000);
+
+    function hideBanner() {
+      banner.classList.remove('translate-y-0', 'opacity-100');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    }
+
+    // Aceptar todo: guarda preferencia y dispara scripts de terceros
+    btnAccept.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      hideBanner();
+
+      // ── TRACKING SCRIPTS ───────────────────────────────────────────
+      // Descomentar y reemplazar G-XXXXXXXXXX cuando GA esté disponible:
+      //
+      // const gaScript = document.createElement('script');
+      // gaScript.src   = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+      // gaScript.async = true;
+      // document.head.appendChild(gaScript);
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag() { dataLayer.push(arguments); }
+      // gtag('js', new Date());
+      // gtag('config', 'G-XXXXXXXXXX');
+      // ───────────────────────────────────────────────────────────────
+    });
+
+    // Solo esenciales: guarda preferencia, no carga tracking
+    btnReject.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'essential');
+      hideBanner();
+    });
+  });
+</script>
+</body>
+</html>

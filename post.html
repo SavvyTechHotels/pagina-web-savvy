@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Savvy Insights — Lectura</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#0e4159', accent: '#A5C9D7', surface: '#F6F3F1' },
+                    fontFamily: {
+                        sans:    ['Montserrat', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fff; }
+        .content-fade { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── Mega menu ── */
+        .mega-menu-wrapper { position: relative; display: inline-flex; }
+        .mega-menu {
+          position: absolute; top: calc(100% + 14px); left: 50%;
+          transform: translateX(-50%) translateY(-8px);
+          width: 680px;
+          background: rgba(255,255,255,0.99);
+          backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+          border-radius: 20px;
+          box-shadow: 0 24px 60px rgba(14,65,89,0.10), 0 0 0 1px rgba(226,232,240,0.7);
+          padding: 1.25rem;
+          opacity: 0; visibility: hidden;
+          transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+          pointer-events: none; z-index: 200;
+        }
+        .mega-menu::before {
+          content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px;
+        }
+        .mega-menu-wrapper:hover .mega-menu,
+        .mega-menu-wrapper.open .mega-menu {
+          opacity: 1; visibility: visible;
+          transform: translateX(-50%) translateY(0);
+          pointer-events: auto;
+        }
+        .mega-chevron {
+          font-size: 18px !important; line-height: 1 !important;
+          transition: transform 0.2s ease; vertical-align: middle;
+        }
+        .mega-menu-wrapper:hover .mega-chevron,
+        .mega-menu-wrapper.open .mega-chevron { transform: rotate(180deg); }
+
+        /* ── Mobile menu ── */
+        #mobile-menu {
+          max-height: 0; opacity: 0; overflow: hidden;
+          transition: max-height 0.35s ease, opacity 0.28s ease;
+        }
+        #mobile-menu.open { max-height: 1400px; opacity: 1; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+<!-- ══════════════════════════════════════════════════════
+     NAV — Siempre blanco sólido
+     ══════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <a href="index.html" class="flex items-center gap-3 shrink-0">
+      <img src="img/LOGO_LOGO.svg" alt="Savvy Tech Hotels" class="h-8 md:h-10 w-auto object-contain">
+      <img src="img/LOGO_LETRA.svg" alt="Savvy Tech Hotels" class="h-8 md:h-10 w-auto object-contain">
+    </a>
+
+    <div class="hidden md:flex items-center gap-0.5">
+      <div class="mega-menu-wrapper">
+        <button class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+          Funcionalidades
+          <span class="material-symbols-outlined mega-chevron">expand_more</span>
+        </button>
+        <div class="mega-menu" role="menu" aria-label="Funcionalidades">
+          <div class="grid grid-cols-2 gap-2">
+            <a href="guest-app.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">smartphone</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Up/Cross-Selling</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">WebApp para vender más durante la estancia.</p></div>
+            </a>
+            <a href="restauracion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">restaurant_menu</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Motor de Reservas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Restauración integrada con la estancia.</p></div>
+            </a>
+            <a href="crm.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">hub</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">CRM</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Historial y preferencias del huésped.</p></div>
+            </a>
+            <a href="automatizacion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">send</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">WhatsApp Business</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Comunicación automática en cada fase.</p></div>
+            </a>
+            <a href="experiencias.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">local_activity</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Proveedores de Experiencias</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Actividades locales para el huésped.</p></div>
+            </a>
+            <a href="resenas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">star_rate</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Reseñas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Reseñas 5 estrellas en el momento clave.</p></div>
+            </a>
+            <a href="operaciones.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">groups</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Comunicación Interna</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Coordinación entre departamentos.</p></div>
+            </a>
+            <a href="campanas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">campaign</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Campañas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Marketing directo en el momento ideal.</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="integraciones.html" class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Integraciones</a>
+      <a href="pricing.html"       class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Pricing</a>
+      <a href="blog.html"          class="px-4 py-2 text-sm font-medium text-primary bg-primary/4 rounded-sm hover:bg-primary/4 transition-all">Blog</a>
+      <a href="nosotros.html"      class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Nosotros</a>
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="ml-3 bg-primary text-white px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm tracking-wide">
+        Reservar Demo
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden p-2 rounded-sm text-primary hover:bg-primary/5 transition-colors">
+      <span id="menu-icon" class="material-symbols-outlined text-2xl">menu</span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100 px-6 pb-6">
+    <div>
+      <button id="mobile-sol-btn" class="w-full flex items-center justify-between py-3.5 text-sm font-medium text-primary border-b border-slate-100" aria-expanded="false">
+        Funcionalidades
+        <span id="mobile-sol-icon" class="material-symbols-outlined text-slate-400 transition-transform" style="font-size:20px">expand_more</span>
+      </button>
+      <div id="mobile-sol-menu" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;">
+        <div class="pl-2 py-2 space-y-0.5">
+          <a href="guest-app.html"      class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">smartphone</span>Up/Cross-Selling</a>
+          <a href="restauracion.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">restaurant_menu</span>Motor de Reservas</a>
+          <a href="crm.html"            class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">hub</span>CRM</a>
+          <a href="automatizacion.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">send</span>WhatsApp Business</a>
+          <a href="experiencias.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">local_activity</span>Experiencias</a>
+          <a href="resenas.html"        class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">star_rate</span>Reseñas</a>
+          <a href="operaciones.html"    class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">groups</span>Comunicación Interna</a>
+          <a href="campanas.html"       class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">campaign</span>Campañas</a>
+        </div>
+      </div>
+    </div>
+    <a href="integraciones.html" class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Integraciones</a>
+    <a href="pricing.html"       class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Pricing</a>
+    <a href="blog.html"          class="block py-3.5 text-sm font-medium text-primary transition-colors border-b border-slate-100">Blog</a>
+    <a href="nosotros.html"      class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Nosotros</a>
+    <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+       class="mt-4 block bg-primary text-white px-5 py-3.5 rounded-sm text-sm font-semibold text-center hover:bg-primary/90 transition-colors tracking-wide">
+      Reservar Demo
+    </a>
+  </div>
+</nav>
+
+    <main class="pt-20 pb-24 px-6 max-w-3xl mx-auto content-fade">
+        <header class="mb-12">
+            <div id="post-label" class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-accent/10 text-primary text-[10px] font-semibold uppercase tracking-widest mb-6">
+                Cargando...
+            </div>
+            <h1 id="post-title" class="text-3xl md:text-5xl font-thin tracking-tighter text-primary leading-tight mb-8">
+                ...
+            </h1>
+            <div class="flex items-center gap-6 text-slate-400 text-xs font-light tracking-wide border-y border-slate-50 py-4">
+                <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                    <span id="post-date">--/--/----</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm">schedule</span>
+                    3 min de lectura
+                </div>
+            </div>
+        </header>
+
+        <div class="mb-12 rounded-sm overflow-hidden shadow-2xl shadow-primary/5">
+            <img id="post-image" src="" alt="" class="w-full aspect-video object-cover bg-slate-100">
+        </div>
+
+        <article id="post-content" class="prose prose-slate prose-lg max-w-none font-light leading-relaxed text-slate-600">
+            Cargando el insight de la IA...
+        </article>
+
+        <footer class="mt-20 pt-10 border-t border-slate-100 text-center">
+            <p class="text-sm text-slate-400 font-light mb-8 italic">Este análisis ha sido generado por la IA de Savvy Tech Hotels para el sector hotelero moderno.</p>
+            <a href="https://calendly.com/yago-savvytechhotels/30min" target="_blank" class="inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-sm font-semibold text-sm tracking-widest uppercase transition-all hover:bg-primary/90 hover:-translate-y-1">
+                Quiero aplicar esto en mi hotel
+            </a>
+        </footer>
+    </main>
+
+    <script>
+        async function loadPost() {
+            // 1. Obtener ID de la URL
+            const params = new URLSearchParams(window.location.search);
+            const postId = params.get('id');
+
+            if (!postId) {
+                window.location.href = 'blog.html';
+                return;
+            }
+
+            // 2. Llamar a n8n
+            const N8N_URL = 'https://vmi3024621.contaboserver.net/webhook/get-news'; 
+
+            try {
+                const response = await fetch(N8N_URL);
+                const articles = await response.json();
+
+                // 3. Buscar el artículo específico por ID
+                const post = articles.find(a => a.ID === postId);
+
+                if (post) {
+                    // 4. Inyectar datos
+                    document.title = `${post.Titulo} — Savvy Insights`;
+                    document.getElementById('post-title').textContent = post.Titulo;
+                    document.getElementById('post-label').textContent = post.Label || 'Savvy Insight';
+                    document.getElementById('post-date').textContent = post.Fecha;
+                    
+                    // Tratamiento de imagen (el mismo truco del thumbnail)
+                    const imgUrl = post.Imagen_URL.includes('drive.google.com') 
+                                   ? post.Imagen_URL.replace('view&id=', 'thumbnail?sz=w1200&id=') 
+                                   : post.Imagen_URL;
+                    document.getElementById('post-image').src = imgUrl;
+
+                    // Inyectar contenido (respetando los <br> que genera n8n)
+                    document.getElementById('post-content').innerHTML = post.Contenido;
+                } else {
+                    document.getElementById('post-content').textContent = 'Lo sentimos, no hemos encontrado este artículo.';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('post-content').textContent = 'Error al conectar con la base de datos de Savvy.';
+            }
+        }
+
+        window.onload = loadPost;
+    </script>
+
+    <script>
+      // ── Mobile menu ──
+      const menuBtn    = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon   = document.getElementById('menu-icon');
+      menuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        menuIcon.textContent = isOpen ? 'close' : 'menu';
+      });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          menuIcon.textContent = 'menu';
+        });
+      });
+      const mobileSolBtn  = document.getElementById('mobile-sol-btn');
+      const mobileSolMenu = document.getElementById('mobile-sol-menu');
+      const mobileSolIcon = document.getElementById('mobile-sol-icon');
+      if (mobileSolBtn) {
+        mobileSolBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = mobileSolMenu.style.maxHeight && mobileSolMenu.style.maxHeight !== '0px';
+          if (isOpen) {
+            mobileSolMenu.style.maxHeight = '0px'; mobileSolMenu.style.opacity = '0';
+            mobileSolIcon.style.transform = 'rotate(0deg)';
+            mobileSolBtn.setAttribute('aria-expanded', 'false');
+          } else {
+            mobileSolMenu.style.maxHeight = mobileSolMenu.scrollHeight + 'px'; mobileSolMenu.style.opacity = '1';
+            mobileSolIcon.style.transform = 'rotate(180deg)';
+            mobileSolBtn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      }
+    
+  // ── Cookie Consent ───────────────────────────────────
+  // Muestra el banner solo si el usuario no ha aceptado aún
+  (function initCookieBanner() {
+    const CONSENT_KEY = 'savvy_cookie_consent';
+
+    // Si ya existe el consentimiento, no mostramos nada
+    if (localStorage.getItem(CONSENT_KEY)) return;
+
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    // Entrada suave 2 segundos después de la carga
+    setTimeout(() => {
+      banner.classList.remove('translate-y-full', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+    }, 2000);
+
+    // Botón Aceptar
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      banner.classList.add('translate-y-full', 'opacity-0');
+
+      // ── TRACKING SCRIPTS ─────────────────────────────
+      // Cargar aquí Google Analytics u otros scripts de terceros
+      // una vez el usuario haya dado su consentimiento explícito.
+      //
+      // Ejemplo:
+      // const gaScript = document.createElement('script');
+      // gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+      // gaScript.async = true;
+      // document.head.appendChild(gaScript);
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag(){ dataLayer.push(arguments); }
+      // gtag('js', new Date());
+      // gtag('config', 'G-XXXXXXXXXX');
+      // ─────────────────────────────────────────────────
+    });
+
+    // Botón Solo esenciales
+    document.getElementById('cookie-reject').addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'essential');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    });
+  })();
+</script>
+<!-- ═══════════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER — Savvy Tech Hotels
+     Aparece 2 s tras la carga. Persiste en localStorage.
+     ═══════════════════════════════════════════════════════════ -->
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Aviso de privacidad y cookies"
+  class="fixed bottom-0 left-0 right-0 z-[9999]
+         translate-y-full opacity-0
+         transition-all duration-700 ease-out"
+>
+  <!-- Línea de acento superior -->
+  <div class="h-px bg-accent w-full"></div>
+
+  <div class="bg-primary text-white px-6 py-5 md:px-10 md:py-6">
+    <div class="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
+      <!-- Copy -->
+      <div class="flex-1 min-w-0">
+        <p class="text-xs tracking-[0.2em] uppercase text-accent font-semibold mb-1">
+          Privacidad &amp; Experiencia
+        </p>
+        <p class="text-sm text-white/80 leading-relaxed max-w-2xl">
+          El lujo también es transparencia. Utilizamos cookies propias y de terceros para mejorar su navegación, personalizar contenidos y analizar el uso del sitio. Puede gestionar sus preferencias en cualquier momento.
+          <a href="/politica-de-privacidad.html" class="underline underline-offset-2 text-white hover:text-accent transition-colors duration-200 ml-1">
+            Leer política
+          </a>
+        </p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex flex-col sm:flex-row gap-2 shrink-0 mt-1 md:mt-0">
+        <button
+          id="cookie-reject"
+          class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold
+                 border border-white/30 text-white/70
+                 hover:border-white/60 hover:text-white
+                 transition-all duration-200 cursor-pointer"
+        >
+          Solo esenciales
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold
+                 bg-accent text-primary
+                 hover:bg-white hover:text-primary
+                 transition-all duration-200 cursor-pointer"
+        >
+          Aceptar todo
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Cookie Consent Script ──────────────────────────────────────────────
+     Separado del script principal para que el DOM del banner ya exista.
+     ──────────────────────────────────────────────────────────────────── -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const CONSENT_KEY = 'savvy_cookie_consent';
+    const banner      = document.getElementById('cookie-banner');
+    const btnAccept   = document.getElementById('cookie-accept');
+    const btnReject   = document.getElementById('cookie-reject');
+
+    // Si ya existe consentimiento previo, no mostramos el banner
+    if (!banner || localStorage.getItem(CONSENT_KEY)) return;
+
+    // Entrada suave 2 segundos después de que el DOM esté listo
+    setTimeout(() => {
+      banner.classList.remove('translate-y-full', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+    }, 2000);
+
+    function hideBanner() {
+      banner.classList.remove('translate-y-0', 'opacity-100');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    }
+
+    // Aceptar todo: guarda preferencia y dispara scripts de terceros
+    btnAccept.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      hideBanner();
+
+      // ── TRACKING SCRIPTS ───────────────────────────────────────────
+      // Descomentar y reemplazar G-XXXXXXXXXX cuando GA esté disponible:
+      //
+      // const gaScript = document.createElement('script');
+      // gaScript.src   = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+      // gaScript.async = true;
+      // document.head.appendChild(gaScript);
+      // window.dataLayer = window.dataLayer || [];
+      // function gtag() { dataLayer.push(arguments); }
+      // gtag('js', new Date());
+      // gtag('config', 'G-XXXXXXXXXX');
+      // ───────────────────────────────────────────────────────────────
+    });
+
+    // Solo esenciales: guarda preferencia, no carga tracking
+    btnReject.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'essential');
+      hideBanner();
+    });
+  });
+</script>
+</body>
+</html>
