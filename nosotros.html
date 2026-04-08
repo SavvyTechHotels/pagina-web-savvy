@@ -764,6 +764,25 @@
     });
   }
 
+  const mobileNosBtn  = document.getElementById('mobile-nos-btn');
+  const mobileNosMenu = document.getElementById('mobile-nos-menu');
+  const mobileNosIcon = document.getElementById('mobile-nos-icon');
+  if (mobileNosBtn) {
+    mobileNosBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNosMenu.style.maxHeight && mobileNosMenu.style.maxHeight !== '0px';
+      if (isOpen) {
+        mobileNosMenu.style.maxHeight = '0px'; mobileNosMenu.style.opacity = '0';
+        mobileNosIcon.style.transform = 'rotate(0deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileNosMenu.style.maxHeight = mobileNosMenu.scrollHeight + 'px'; mobileNosMenu.style.opacity = '1';
+        mobileNosIcon.style.transform = 'rotate(180deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
   // ── Scroll reveal ────────────────────────────────────────
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
