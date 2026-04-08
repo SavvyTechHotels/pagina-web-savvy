@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Caso de Éxito: Hotel Alcázar de la Reina | Savvy Tech Hotels</title>
+<meta name="description" content="Cómo el Hotel Alcázar de la Reina vivió una Semana Santa con más del 90% de ocupación sin colapsar la recepción. Tecnología de anticipación de Savvy Tech Hotels."/>
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:title" content="Caso de Éxito: Hotel Alcázar de la Reina | Savvy Tech Hotels">
+<meta property="og:description" content="Anticipación: El secreto para una Semana Santa sin estrés.">
+<meta property="og:image" content="https://www.savvytechhotels.com/img/LOGO_DEBAJO.svg">
+<meta property="og:type" content="article"/>
+<link rel="canonical" href="caso-alcazar.html"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          primary: '#0e4159',
+          accent:  '#A5C9D7',
+          surface: '#F6F3F1',
+        },
+        fontFamily: {
+          sans:    ['Montserrat', 'sans-serif'],
+          display: ['Montserrat', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  body { font-family: 'Montserrat', sans-serif; }
+
+  /* ── Mega menu ── */
+  .mega-menu-wrapper { position: relative; display: inline-flex; }
+  .mega-menu {
+    position: absolute; top: calc(100% + 14px); left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    width: 680px;
+    background: rgba(255,255,255,0.99);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(14,65,89,0.10), 0 0 0 1px rgba(226,232,240,0.7);
+    padding: 1.25rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    pointer-events: none; z-index: 200;
+  }
+  .mega-menu::before {
+    content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px;
+  }
+  .mega-menu-wrapper:hover .mega-menu,
+  .mega-menu-wrapper.open .mega-menu {
+    opacity: 1; visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  .mega-chevron {
+    font-size: 18px !important; line-height: 1 !important;
+    transition: transform 0.2s ease; vertical-align: middle;
+  }
+  .mega-menu-wrapper:hover .mega-chevron,
+  .mega-menu-wrapper.open .mega-chevron { transform: rotate(180deg); }
+
+  /* ── Mobile menu ── */
+  #mobile-menu {
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.28s ease;
+  }
+  #mobile-menu.open { max-height: 1400px; opacity: 1; }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.12s; }
+  .reveal-d2 { transition-delay: 0.24s; }
+  .reveal-d3 { transition-delay: 0.36s; }
+  .reveal-d4 { transition-delay: 0.48s; }
+
+  /* ── Section label ── */
+  .section-label-line { width: 2rem; height: 1px; background: #A5C9D7; }
+  .section-label-text {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #A5C9D7;
+  }
+
+  /* ── Metric card accent bar ── */
+  .metric-card::before {
+    content: '';
+    display: block;
+    width: 2.5rem; height: 2px;
+    background: #A5C9D7;
+    margin-bottom: 1.5rem;
+    border-radius: 999px;
+  }
+
+  /* ── Journey step connector ── */
+  .step-line {
+    position: absolute; top: 2.75rem; left: 50%;
+    width: 1px; height: calc(100% + 2rem);
+    background: linear-gradient(to bottom, rgba(165,201,215,0.5), transparent);
+    transform: translateX(-50%);
+  }
+
+  /* ── Quote decoration ── */
+  .quote-mark {
+    font-size: 6rem; line-height: 1;
+    font-family: Georgia, serif;
+    color: rgba(165,201,215,0.35);
+    position: absolute; top: -1rem; left: -0.5rem;
+    pointer-events: none; user-select: none;
+  }
+
+  /* ══ Hero carrusel ══════════════════════════════════════ */
+  .hero-slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0;
+    transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+  .hero-slide.active { opacity: 1; }
+
+  /* Ken-Burns suave solo en la slide activa */
+  @keyframes kenburns {
+    0%   { transform: scale(1.00); }
+    100% { transform: scale(1.06); }
+  }
+  .hero-slide.active .hero-slide-img {
+    animation: kenburns 8s ease-out forwards;
+  }
+  .hero-slide-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+  }
+
+  /* Puntos indicadores */
+  .hero-dot {
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.35);
+    transition: background 0.3s ease, width 0.3s ease;
+    cursor: pointer;
+  }
+  .hero-dot.active {
+    background: #A5C9D7;
+    width: 22px;
+  }
+</style>
+</head>
+
+<body class="bg-white text-slate-900 overflow-x-hidden antialiased">
+
+<!-- ══════════════════════════════════════════════════════
+     NAV — Siempre blanco sólido
+     ══════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <a href="index.html" class="flex items-center gap-3 shrink-0">
+      <img src="img/LOGO_LOGO.svg" alt="Savvy Tech Hotels" class="h-8 md:h-8 w-auto object-contain">
+      <img src="img/LOGO_LETRA.svg" alt="Savvy Tech Hotels" class="h-8 md:h-8 w-auto object-contain">
+    </a>
+
+    <div class="hidden md:flex items-center gap-0.5">
+      <div class="mega-menu-wrapper">
+        <button class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+          Funcionalidades
+          <span class="material-symbols-outlined mega-chevron">expand_more</span>
+        </button>
+        <div class="mega-menu" role="menu" aria-label="Funcionalidades">
+          <div class="grid grid-cols-2 gap-2">
+            <a href="guest-app.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">smartphone</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Up/Cross-Selling</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">WebApp para vender más durante la estancia.</p></div>
+            </a>
+            <a href="restauracion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">restaurant_menu</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Motor de Reservas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Restauración integrada con la estancia.</p></div>
+            </a>
+            <a href="crm.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">hub</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">CRM</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Historial y preferencias del huésped.</p></div>
+            </a>
+            <a href="automatizacion.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">send</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">WhatsApp Business</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Comunicación automática en cada fase.</p></div>
+            </a>
+            <a href="experiencias.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">local_activity</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Proveedores de Experiencias</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Actividades locales para el huésped.</p></div>
+            </a>
+            <a href="resenas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">star_rate</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Reseñas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Reseñas 5 estrellas en el momento clave.</p></div>
+            </a>
+            <a href="operaciones.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">groups</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Comunicación Interna</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Coordinación entre departamentos.</p></div>
+            </a>
+            <a href="campanas.html" role="menuitem" class="flex items-start gap-3 p-2.5 rounded-sm hover:bg-surface transition-colors group">
+              <div class="w-9 h-9 rounded-sm bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-xl">campaign</span>
+              </div>
+              <div><p class="font-semibold text-slate-800 text-sm">Campañas</p><p class="text-slate-400 text-xs mt-0.5 leading-snug font-light">Marketing directo en el momento ideal.</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="integraciones.html" class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Integraciones</a>
+      <a href="pricing.html"       class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Pricing</a>
+      <a href="blog.html"          class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Blog</a>
+      <div class="mega-menu-wrapper">
+        <button class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+          Nosotros
+          <span class="material-symbols-outlined mega-chevron">expand_more</span>
+        </button>
+        <div class="mega-menu" role="menu" aria-label="Nosotros" style="width:200px;left:0;transform:translateY(-8px);">
+          <div class="flex flex-col">
+            <a href="nosotros.html" role="menuitem" class="flex items-center gap-2 px-2 py-2 rounded-sm hover:bg-surface transition-colors text-sm font-medium text-slate-700 hover:text-primary">
+              <span class="material-symbols-outlined text-accent" style="font-size:16px">people</span>Quiénes somos
+            </a>
+            <a href="caso-alcazar.html" role="menuitem" class="flex items-center gap-2 px-2 py-2 rounded-sm hover:bg-surface transition-colors text-sm font-medium text-slate-700 hover:text-primary">
+              <span class="material-symbols-outlined text-accent" style="font-size:16px">hotel</span>Caso de Éxito
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="ml-3 bg-primary text-white px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm tracking-wide">
+        Reservar Demo
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden p-2 rounded-sm text-primary hover:bg-primary/5 transition-colors">
+      <span id="menu-icon" class="material-symbols-outlined text-2xl">menu</span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100 px-6 pb-6">
+    <div>
+      <button id="mobile-sol-btn" class="w-full flex items-center justify-between py-3.5 text-sm font-medium text-primary border-b border-slate-100" aria-expanded="false">
+        Funcionalidades
+        <span id="mobile-sol-icon" class="material-symbols-outlined text-slate-400 transition-transform" style="font-size:20px">expand_more</span>
+      </button>
+      <div id="mobile-sol-menu" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;">
+        <div class="pl-2 py-2 space-y-0.5">
+          <a href="guest-app.html"      class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">smartphone</span>Up/Cross-Selling</a>
+          <a href="restauracion.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">restaurant_menu</span>Motor de Reservas</a>
+          <a href="crm.html"            class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">hub</span>CRM</a>
+          <a href="automatizacion.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">send</span>WhatsApp Business</a>
+          <a href="experiencias.html"   class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">local_activity</span>Experiencias</a>
+          <a href="resenas.html"        class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">star_rate</span>Reseñas</a>
+          <a href="operaciones.html"    class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">groups</span>Comunicación Interna</a>
+          <a href="campanas.html"       class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">campaign</span>Campañas</a>
+        </div>
+      </div>
+    </div>
+    <a href="integraciones.html" class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Integraciones</a>
+    <a href="pricing.html"       class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Pricing</a>
+    <a href="blog.html"          class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Blog</a>
+    <div>
+      <button id="mobile-nos-btn" class="w-full flex items-center justify-between py-3.5 text-sm font-medium text-primary border-b border-slate-100" aria-expanded="false">
+        Nosotros
+        <span id="mobile-nos-icon" class="material-symbols-outlined text-slate-400 transition-transform" style="font-size:20px">expand_more</span>
+      </button>
+      <div id="mobile-nos-menu" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;">
+        <div class="pl-2 py-2 space-y-0.5">
+          <a href="nosotros.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">people</span>Quiénes somos</a>
+          <a href="caso-alcazar.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">hotel</span>Caso de Éxito</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+       class="mt-4 block bg-primary text-white px-5 py-3.5 rounded-sm text-sm font-semibold text-center hover:bg-primary/90 transition-colors tracking-wide">
+      Reservar Demo
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════
+     HERO — Carrusel de fondo + Caso de Éxito
+     ══════════════════════════════════════════════════════ -->
+<section id="hero-caso" class="relative min-h-[92vh] md:min-h-screen flex items-end overflow-hidden" style="background: linear-gradient(135deg, #0e4159 0%, #0a2d3e 60%, #061e2b 100%)">
+
+  <!-- ── Carrusel de fondo ────────────────────────────── -->
+  <div id="hero-slides" class="absolute inset-0 z-0" aria-hidden="true">
+
+    <div class="hero-slide active">
+      <img class="hero-slide-img" src="img/alcazar_1.jpg" alt="Hotel Alcázar de la Reina — piscina" loading="eager">
+    </div>
+
+    <div class="hero-slide">
+      <img class="hero-slide-img" src="img/alcazar_2.jpg" alt="Hotel Alcázar de la Reina — identidad" loading="lazy">
+    </div>
+
+    <div class="hero-slide">
+      <img class="hero-slide-img" src="img/alcazar_3.jpeg" alt="Hotel Alcázar de la Reina — fachada" loading="lazy">
+    </div>
+
+  </div>
+
+  <!-- ── Overlay oscuro base + gradiente para que el texto respire ── -->
+  <div class="absolute inset-0 z-[1]" style="background: rgba(0,0,0,0.45);"></div>
+  <div class="absolute inset-0 z-[2]"
+       style="background: linear-gradient(
+         to bottom,
+         rgba(0,0,0,0.50) 0%,
+         rgba(0,0,0,0.20) 38%,
+         rgba(0,0,0,0.45) 72%,
+         rgba(0,0,0,0.80) 100%
+       );">
+  </div>
+
+  <!-- ── Contenido — anclado al fondo ─────────────────── -->
+  <div class="relative z-10 w-full max-w-4xl mx-auto px-6 pt-32 pb-16 md:pb-20">
+
+    <!-- Badge sección -->
+    <div class="inline-flex items-center gap-2 mb-8">
+      <span class="text-[10px] font-medium text-accent uppercase tracking-[0.28em]">Caso de Éxito</span>
+    </div>
+
+    <!-- Hotel badge -->
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 mb-8 border border-white/20 rounded-sm bg-white/8 backdrop-blur-sm">
+      <span class="material-symbols-outlined text-accent" style="font-size:15px">hotel</span>
+      <span class="text-[11px] font-semibold text-white/90 uppercase tracking-[0.22em]">Hotel Alcázar de la Reina · Carmona, Sevilla</span>
+    </div>
+
+    <!-- H1 -->
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter text-white leading-[1.08] mb-7" style="text-shadow: 0 2px 16px rgba(0,0,0,0.55);">
+      Anticipación:<br>
+      <em style="font-style:italic; font-weight:300; color:#A5C9D7;">el secreto para una</em><br>
+      Semana Santa sin estrés
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="text-base md:text-lg font-light leading-loose text-white/85 max-w-2xl mb-10">
+      Con más del 90% de ocupación y la Semana Santa más concurrida de los últimos años,
+      el equipo del Alcázar eligió no reaccionar al caos. Eligió anticiparse.
+    </p>
+
+    <!-- Meta fila + dots — misma línea -->
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+
+      <!-- Metadatos -->
+      <div class="flex flex-wrap items-center gap-5 text-[11px] font-light text-white/45 uppercase tracking-[0.22em]">
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#A5C9D7">calendar_today</span>
+          Semana Santa 2025
+        </span>
+        <span class="hidden sm:block w-px h-3.5 bg-white/20"></span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#A5C9D7">location_on</span>
+          Carmona, Sevilla
+        </span>
+        <span class="hidden sm:block w-px h-3.5 bg-white/20"></span>
+        <span class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:14px; color:#A5C9D7">category</span>
+          Automatización · Pre-estancia
+        </span>
+      </div>
+
+      <!-- Spacer -->
+      <div class="flex-1"></div>
+
+      <!-- Puntos del carrusel -->
+      <div id="hero-dots" class="flex items-center gap-2" role="tablist" aria-label="Fotos del hotel">
+        <button class="hero-dot active" role="tab" aria-selected="true"  aria-label="Foto 1" data-slide="0"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" aria-label="Foto 2" data-slide="1"></button>
+        <button class="hero-dot"        role="tab" aria-selected="false" aria-label="Foto 3" data-slide="2"></button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     MÉTRICAS — Números que hablan
+     ══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-24 px-6 bg-surface">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+      <!-- Métrica 1 -->
+      <div class="reveal metric-card bg-white rounded-sm p-8 shadow-[0_2px_24px_rgba(14,65,89,0.06)] border border-slate-100/80">
+        <p class="text-5xl md:text-6xl font-thin text-primary tracking-tighter mb-2">+90<span class="text-3xl font-light text-accent">%</span></p>
+        <p class="text-sm font-semibold text-slate-700 mb-2">Ocupación en Semana Santa</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">El punto de máxima presión operativa: cada habitación ocupada, cada minuto contado.</p>
+      </div>
+
+      <!-- Métrica 2 -->
+      <div class="reveal reveal-d1 metric-card bg-white rounded-sm p-8 shadow-[0_2px_24px_rgba(14,65,89,0.06)] border border-slate-100/80">
+        <p class="text-5xl md:text-6xl font-thin text-primary tracking-tighter mb-2">−<span class="text-accent font-light">80</span><span class="text-3xl font-light text-accent">%</span></p>
+        <p class="text-sm font-semibold text-slate-700 mb-2">Consultas pre-check-in al equipo</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">Las preguntas repetitivas llegaron antes de que el huésped tuviese que formularlas.</p>
+      </div>
+
+      <!-- Métrica 3 -->
+      <div class="reveal reveal-d2 metric-card bg-white rounded-sm p-8 shadow-[0_2px_24px_rgba(14,65,89,0.06)] border border-slate-100/80">
+        <p class="text-5xl md:text-6xl font-thin text-primary tracking-tighter mb-2">0<span class="text-3xl font-light text-accent">h</span></p>
+        <p class="text-sm font-semibold text-slate-700 mb-2">Tiempo perdido en tareas repetitivas</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">Recepción liberada para lo que de verdad importa: la hospitalidad real.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ANTES / DESPUÉS
+     ══════════════════════════════════════════════════════ -->
+<section class="py-20 md:py-28 px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="reveal flex items-center justify-center gap-4 mb-4">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">El cambio</span>
+      <div class="section-label-line"></div>
+    </div>
+    <p class="reveal text-center text-sm font-light text-slate-400 mb-14">
+      Semana Santa con +90% de ocupación. El mismo hotel, dos realidades.
+    </p>
+
+    <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- ANTES -->
+      <div class="bg-rose-50 border border-rose-100 rounded-sm p-7">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-rose-400 mb-5">Sin Savvy</p>
+        <ul class="space-y-3.5">
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-rose-300 shrink-0" style="font-size:18px">cancel</span>
+            <span class="text-sm font-light text-slate-600">Teléfono y correo saturados con las mismas preguntas de siempre</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-rose-300 shrink-0" style="font-size:18px">cancel</span>
+            <span class="text-sm font-light text-slate-600">Equipo agotado antes del primer check-in</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-rose-300 shrink-0" style="font-size:18px">cancel</span>
+            <span class="text-sm font-light text-slate-600">Información enviada tarde, de forma reactiva</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-rose-300 shrink-0" style="font-size:18px">cancel</span>
+            <span class="text-sm font-light text-slate-600">Bienvenidas apresuradas, sin energía para el trato</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- DESPUÉS -->
+      <div class="bg-primary rounded-sm p-7 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 rounded-full opacity-5"
+             style="background: radial-gradient(circle, #A5C9D7, transparent); transform: translate(30%,-30%);"></div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent/70 mb-5">Con Savvy</p>
+        <ul class="space-y-3.5 relative z-10">
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-accent shrink-0" style="font-size:18px">check_circle</span>
+            <span class="text-sm font-light text-white/85">Toda la info enviada automáticamente días antes de la llegada</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-accent shrink-0" style="font-size:18px">check_circle</span>
+            <span class="text-sm font-light text-white/85">−80% de consultas al equipo en días pico</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-accent shrink-0" style="font-size:18px">check_circle</span>
+            <span class="text-sm font-light text-white/85">Huéspedes informados antes de que pregunten</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-accent shrink-0" style="font-size:18px">check_circle</span>
+            <span class="text-sm font-light text-white/85">Equipo descansado, bienvenidas de verdad</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Cómo funciona -->
+    <div class="reveal mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-surface border border-slate-100 rounded-sm p-5 flex flex-col gap-2">
+        <span class="material-symbols-outlined text-accent" style="font-size:22px">sync_alt</span>
+        <p class="text-sm font-semibold text-primary">Integración con tu PMS</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">Se conecta con tu sistema actual. Sin cambiar cómo trabajas.</p>
+      </div>
+      <div class="bg-surface border border-slate-100 rounded-sm p-5 flex flex-col gap-2">
+        <span class="material-symbols-outlined text-accent" style="font-size:22px">schedule_send</span>
+        <p class="text-sm font-semibold text-primary">Mensajes automáticos</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">WhatsApp y email con la info justa en el momento exacto.</p>
+      </div>
+      <div class="bg-surface border border-slate-100 rounded-sm p-5 flex flex-col gap-2">
+        <span class="material-symbols-outlined text-accent" style="font-size:22px">star_rate</span>
+        <p class="text-sm font-semibold text-primary">Más reseñas positivas</p>
+        <p class="text-xs font-light text-slate-400 leading-relaxed">La experiencia de llegada se refleja directamente en Google.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     TESTIMONIO — Cita de Dirección
+     ══════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-36 px-6 bg-primary overflow-hidden relative">
+
+  <!-- Decoración de fondo -->
+  <div class="absolute top-0 left-0 w-96 h-96 rounded-full opacity-5"
+       style="background: radial-gradient(circle, #A5C9D7, transparent); transform: translate(-40%, -40%);"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-5"
+       style="background: radial-gradient(circle, #A5C9D7, transparent); transform: translate(40%, 40%);"></div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+
+    <div class="reveal inline-flex items-center gap-4 mb-14">
+      <div class="section-label-line" style="background:rgba(165,201,215,0.4)"></div>
+      <span class="section-label-text" style="color:rgba(165,201,215,0.7)">La Voz del Hotel</span>
+      <div class="section-label-line" style="background:rgba(165,201,215,0.4)"></div>
+    </div>
+
+    <!-- Cita -->
+    <div class="reveal relative">
+      <!-- Comilla decorativa -->
+      <span class="quote-mark" style="color:rgba(165,201,215,0.15); font-size:8rem; position:absolute; top:-2rem; left:-1rem; font-family:Georgia,serif; line-height:1; pointer-events:none; user-select:none;">"</span>
+
+      <blockquote class="text-2xl md:text-3xl lg:text-4xl font-thin text-white leading-[1.35] tracking-tight mb-12 relative z-10">
+        "Por primera vez en Semana Santa,
+        <em style="font-style:italic; font-weight:300; color:#A5C9D7;"> mi equipo llegó al check-in del viernes con energía.</em>
+        No tuvieron que apagar ningún fuego porque Savvy se había encargado de que no existiesen."
+      </blockquote>
+    </div>
+
+    <!-- Autor -->
+    <div class="reveal reveal-d1 flex flex-col items-center gap-3">
+      <div class="w-12 h-px bg-accent/40"></div>
+      <div>
+        <p class="text-sm font-semibold text-white/90 tracking-wide">Dirección General</p>
+        <p class="text-xs font-light text-accent/70 mt-1 tracking-[0.2em] uppercase">Hotel Alcázar de la Reina · Carmona, Sevilla</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     CTA — Cierre de página
+     ══════════════════════════════════════════════════════ -->
+<section class="py-24 md:py-36 px-6 bg-white">
+  <div class="max-w-3xl mx-auto text-center">
+
+    <div class="reveal inline-flex items-center gap-4 mb-12">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">¿Y tu hotel?</span>
+      <div class="section-label-line"></div>
+    </div>
+
+    <h2 class="reveal text-3xl md:text-5xl font-thin text-primary tracking-tighter leading-[1.1] mb-8">
+      Tu próxima temporada alta<br>
+      <em style="font-style:italic; font-weight:300; color:#A5C9D7;">puede ser diferente</em>
+    </h2>
+
+    <p class="reveal reveal-d1 text-sm md:text-base font-light text-slate-500 leading-loose max-w-xl mx-auto mb-12">
+      La anticipación no es un lujo. Es la diferencia entre un equipo que sobrevive la semana y un equipo que la disfruta. Y un huésped que llega informado ya es un huésped bien atendido.
+    </p>
+
+    <div class="reveal reveal-d2 flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
+         class="bg-primary text-white px-10 py-4 rounded-sm font-semibold text-sm tracking-widest uppercase transition-all duration-300 hover:bg-primary/90 shadow-[0_4px_24px_rgba(14,65,89,0.18)] hover:-translate-y-0.5">
+        Reservar Demo Gratuita
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════════ -->
+<footer class="bg-primary pt-20 pb-10 px-6 border-t border-white/8">
+  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
+
+    <div class="col-span-2 md:col-span-1">
+      <div class="flex items-center gap-3 mb-6">
+        <img src="img/LOGO_DEBAJO_BLANCO.svg" alt="Savvy Tech Hotels" class="h-14 md:h-20 w-auto object-contain mb-6 ml-4">
+      </div>
+      <p class="text-base font-light leading-relaxed text-white/80">
+        Restaura la autoridad de tu marca hotelera.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-semibold text-white/60 mb-6 text-xs uppercase tracking-[0.2em]">Producto</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="guest-app.html">Guest App</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="restauracion.html">Motor de Restauración</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="crm.html">CRM</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="automatizacion.html">Automatización</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="campanas.html">Campañas</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="integraciones.html">Integraciones</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-white/60 mb-6 text-xs uppercase tracking-[0.2em]">Compañía</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="nosotros.html">Nosotros</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="blog.html">Blog</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-white/60 mb-6 text-xs uppercase tracking-[0.2em]">Legal</h4>
+      <ul class="space-y-4 text-sm font-light">
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="#">Privacidad</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="terminos.html">Términos</a></li>
+        <li><a class="text-white/35 hover:text-white/70 transition-colors" href="aviso-legal.html">Aviso Legal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto pt-8 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="text-xs text-white/25 font-light">© 2026 Savvy Tech Hotels. Todos los derechos reservados.</p>
+    <div class="flex gap-4">
+      <a class="text-white/25 hover:text-white/50 transition-colors" href="#"><span class="material-symbols-outlined" style="font-size:18px">share</span></a>
+      <a class="text-white/25 hover:text-white/50 transition-colors" href="#"><span class="material-symbols-outlined" style="font-size:18px">public</span></a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER
+     ══════════════════════════════════════════════════════ -->
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Aviso de privacidad y cookies"
+  class="fixed bottom-0 left-0 right-0 z-[9999] translate-y-full opacity-0 transition-all duration-700 ease-out"
+>
+  <div class="h-px bg-accent w-full"></div>
+  <div class="bg-primary text-white px-6 py-5 md:px-10 md:py-6">
+    <div class="max-w-7xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div class="flex-1 min-w-0">
+        <p class="text-xs tracking-[0.2em] uppercase text-accent font-semibold mb-1">Privacidad &amp; Experiencia</p>
+        <p class="text-sm text-white/80 leading-relaxed max-w-2xl">
+          El lujo también es transparencia. Utilizamos cookies propias y de terceros para mejorar su navegación, personalizar contenidos y analizar el uso del sitio.
+          <a href="/politica-de-privacidad.html" class="underline underline-offset-2 text-white hover:text-accent transition-colors duration-200 ml-1">Leer política</a>
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-2 shrink-0 mt-1 md:mt-0">
+        <button id="cookie-reject" class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold border border-white/30 text-white/70 hover:border-white/60 hover:text-white transition-all duration-200 cursor-pointer">Solo esenciales</button>
+        <button id="cookie-accept" class="px-6 py-2.5 text-xs tracking-[0.18em] uppercase font-semibold bg-accent text-primary hover:bg-white hover:text-primary transition-all duration-200 cursor-pointer">Aceptar todo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════ -->
+<script>
+  // ── 1. Menú móvil ────────────────────────────────────────────
+  const menuBtn    = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon   = document.getElementById('menu-icon');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuIcon.textContent = isOpen ? 'close' : 'menu';
+  });
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuIcon.textContent = 'menu';
+    });
+  });
+
+  // ── 2. Submenú móvil Funcionalidades ─────────────────────────
+  const mobileSolBtn  = document.getElementById('mobile-sol-btn');
+  const mobileSolMenu = document.getElementById('mobile-sol-menu');
+  const mobileSolIcon = document.getElementById('mobile-sol-icon');
+  if (mobileSolBtn) {
+    mobileSolBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileSolMenu.style.maxHeight && mobileSolMenu.style.maxHeight !== '0px';
+      if (isOpen) {
+        mobileSolMenu.style.maxHeight = '0px'; mobileSolMenu.style.opacity = '0';
+        mobileSolIcon.style.transform = 'rotate(0deg)';
+        mobileSolBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileSolMenu.style.maxHeight = mobileSolMenu.scrollHeight + 'px'; mobileSolMenu.style.opacity = '1';
+        mobileSolIcon.style.transform = 'rotate(180deg)';
+        mobileSolBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  const mobileNosBtn  = document.getElementById('mobile-nos-btn');
+  const mobileNosMenu = document.getElementById('mobile-nos-menu');
+  const mobileNosIcon = document.getElementById('mobile-nos-icon');
+  if (mobileNosBtn) {
+    mobileNosBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNosMenu.style.maxHeight && mobileNosMenu.style.maxHeight !== '0px';
+      if (isOpen) {
+        mobileNosMenu.style.maxHeight = '0px'; mobileNosMenu.style.opacity = '0';
+        mobileNosIcon.style.transform = 'rotate(0deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileNosMenu.style.maxHeight = mobileNosMenu.scrollHeight + 'px'; mobileNosMenu.style.opacity = '1';
+        mobileNosIcon.style.transform = 'rotate(180deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  // ── 2b. Hero carrusel ────────────────────────────────────────
+  (function initHeroCarousel() {
+    const slides   = document.querySelectorAll('.hero-slide');
+    const dots     = document.querySelectorAll('.hero-dot');
+    let   current  = 0;
+    let   timer    = null;
+
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      dots[current].setAttribute('aria-selected', 'false');
+      current = idx;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      dots[current].setAttribute('aria-selected', 'true');
+    }
+
+    function advance() { goTo((current + 1) % slides.length); }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(advance, 5000);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goTo(parseInt(dot.dataset.slide, 10));
+        startTimer(); // reinicia el contador al clicar
+      });
+    });
+
+    startTimer();
+  })();
+
+  // ── 3. Scroll reveal ─────────────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── 4. Cookie consent ─────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    const CONSENT_KEY = 'savvy_cookie_consent';
+    const banner      = document.getElementById('cookie-banner');
+    const btnAccept   = document.getElementById('cookie-accept');
+    const btnReject   = document.getElementById('cookie-reject');
+
+    if (!banner || localStorage.getItem(CONSENT_KEY)) return;
+
+    setTimeout(() => {
+      banner.classList.remove('translate-y-full', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+    }, 2000);
+
+    function hideBanner() {
+      banner.classList.remove('translate-y-0', 'opacity-100');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    }
+
+    btnAccept?.addEventListener('click', () => { localStorage.setItem(CONSENT_KEY, 'accepted'); hideBanner(); });
+    btnReject?.addEventListener('click', () => { localStorage.setItem(CONSENT_KEY, 'essential'); hideBanner(); });
+  });
+</script>
+
+</body>
+</html>

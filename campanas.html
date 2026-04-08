@@ -212,7 +212,22 @@
       <a href="integraciones.html" class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Integraciones</a>
       <a href="pricing.html"       class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Pricing</a>
       <a href="blog.html"          class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Blog</a>
-      <a href="nosotros.html"      class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all">Nosotros</a>
+      <div class="mega-menu-wrapper">
+        <button class="px-4 py-2 text-sm font-medium text-primary/65 hover:text-primary rounded-sm hover:bg-primary/4 transition-all inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+          Nosotros
+          <span class="material-symbols-outlined mega-chevron">expand_more</span>
+        </button>
+        <div class="mega-menu" role="menu" aria-label="Nosotros" style="width:200px;left:0;transform:translateY(-8px);">
+          <div class="flex flex-col">
+            <a href="nosotros.html" role="menuitem" class="flex items-center gap-2 px-2 py-2 rounded-sm hover:bg-surface transition-colors text-sm font-medium text-slate-700 hover:text-primary">
+              <span class="material-symbols-outlined text-accent" style="font-size:16px">people</span>Quiénes somos
+            </a>
+            <a href="caso-alcazar.html" role="menuitem" class="flex items-center gap-2 px-2 py-2 rounded-sm hover:bg-surface transition-colors text-sm font-medium text-slate-700 hover:text-primary">
+              <span class="material-symbols-outlined text-accent" style="font-size:16px">hotel</span>Caso de Éxito
+            </a>
+          </div>
+        </div>
+      </div>
       <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
          class="ml-3 bg-primary text-white px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm tracking-wide">
         Reservar Demo
@@ -246,7 +261,18 @@
     <a href="integraciones.html" class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Integraciones</a>
     <a href="pricing.html"       class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Pricing</a>
     <a href="blog.html"          class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Blog</a>
-    <a href="nosotros.html"      class="block py-3.5 text-sm font-light text-slate-700 hover:text-primary transition-colors border-b border-slate-100">Nosotros</a>
+    <div>
+      <button id="mobile-nos-btn" class="w-full flex items-center justify-between py-3.5 text-sm font-medium text-primary border-b border-slate-100" aria-expanded="false">
+        Nosotros
+        <span id="mobile-nos-icon" class="material-symbols-outlined text-slate-400 transition-transform" style="font-size:20px">expand_more</span>
+      </button>
+      <div id="mobile-nos-menu" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease;">
+        <div class="pl-2 py-2 space-y-0.5">
+          <a href="nosotros.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">people</span>Quiénes somos</a>
+          <a href="caso-alcazar.html" class="flex items-center gap-2.5 px-3 py-2.5 text-sm font-light text-slate-600 hover:text-primary hover:bg-primary/5 rounded-sm transition-all"><span class="material-symbols-outlined text-accent" style="font-size:18px">hotel</span>Caso de Éxito</a>
+        </div>
+      </div>
+    </div>
     <a href="https://calendly.com/yago-savvytechhotels/30min?month=2026-03" target="_blank" rel="noopener noreferrer"
        class="mt-4 block bg-primary text-white px-5 py-3.5 rounded-sm text-sm font-semibold text-center hover:bg-primary/90 transition-colors tracking-wide">
       Reservar Demo
@@ -897,6 +923,25 @@
         mobileSolMenu.style.opacity   = '1';
         mobileSolIcon.style.transform = 'rotate(180deg)';
         mobileSolBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  }
+
+  const mobileNosBtn  = document.getElementById('mobile-nos-btn');
+  const mobileNosMenu = document.getElementById('mobile-nos-menu');
+  const mobileNosIcon = document.getElementById('mobile-nos-icon');
+  if (mobileNosBtn) {
+    mobileNosBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNosMenu.style.maxHeight && mobileNosMenu.style.maxHeight !== '0px';
+      if (isOpen) {
+        mobileNosMenu.style.maxHeight = '0px'; mobileNosMenu.style.opacity = '0';
+        mobileNosIcon.style.transform = 'rotate(0deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileNosMenu.style.maxHeight = mobileNosMenu.scrollHeight + 'px'; mobileNosMenu.style.opacity = '1';
+        mobileNosIcon.style.transform = 'rotate(180deg)';
+        mobileNosBtn.setAttribute('aria-expanded', 'true');
       }
     });
   }
