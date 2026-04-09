@@ -1,0 +1,47 @@
+# Savvy Tech Hotels
+
+## What is Savvy?
+
+Savvy Tech Hotels is a **B2B SaaS platform for hotels** focused on Guest Experience digitalization. It helps hotels automate the pre-stay journey, recover direct guest contact lost to OTAs, increase ancillary revenue through upselling and cross-selling, and automate review generation — all integrated natively with the hotel's PMS.
+
+Savvy is not a booking engine or a PMS. It operates in the "dead zone" between reservation and check-in, turning that silence into a revenue and loyalty opportunity.
+
+## Core value propositions
+
+- **Guest Experience digitalization**: Automated WhatsApp flows before, during, and after the stay.
+- **Revenue increase**: Upselling and cross-selling via a branded guest web app — no app download required.
+- **Review automation**: Automated post-stay flows to generate 5-star reviews on Google and OTA platforms.
+- **Direct contact recovery**: Savvy captures guest data (email, phone) before the OTA does.
+- **Operational efficiency**: Internal team communication and task management built in.
+
+## Target audience
+
+Independent hotels, boutique hotels, and small hotel chains in Spain and Latin America. Decision-makers are hotel managers and revenue managers looking to reduce OTA dependency, improve NPS, and grow direct revenue without adding operational load.
+
+## Business model
+
+SaaS, B2B, subscription-based. Pricing by hotel size. Integrates with major PMS and channel managers (Mews, Cloudbeds, SiteMinder, RoomCloud, etc.).
+
+## Main pages
+
+- **Homepage** — [https://www.savvytechhotels.com/](https://www.savvytechhotels.com/) — Platform overview and value proposition.
+- **Guest App (Up/Cross-Selling)** — [https://www.savvytechhotels.com/guest-app](https://www.savvytechhotels.com/guest-app) — Branded web app for upselling and cross-selling to guests before and during their stay.
+- **WhatsApp Automation** — [https://www.savvytechhotels.com/automatizacion](https://www.savvytechhotels.com/automatizacion) — Automated guest communication via WhatsApp Business API.
+- **Direct Marketing Campaigns** — [https://www.savvytechhotels.com/campanas](https://www.savvytechhotels.com/campanas) — Direct marketing campaigns to re-engage OTA guests.
+- **Hotel CRM** — [https://www.savvytechhotels.com/crm](https://www.savvytechhotels.com/crm) — Guest profile management and segmentation.
+- **Review Management** — [https://www.savvytechhotels.com/resenas](https://www.savvytechhotels.com/resenas) — Automated review generation for Google and booking platforms.
+- **Local Experiences Engine** — [https://www.savvytechhotels.com/experiencias](https://www.savvytechhotels.com/experiencias) — Curated local experience recommendations sold via the guest app.
+- **F&B Booking Engine** — [https://www.savvytechhotels.com/restauracion](https://www.savvytechhotels.com/restauracion) — Reservation system for hotel restaurants and F&B services.
+- **Internal Operations** — [https://www.savvytechhotels.com/operaciones](https://www.savvytechhotels.com/operaciones) — Internal hotel team communication and task management.
+- **PMS & Channel Manager Integrations** — [https://www.savvytechhotels.com/integraciones](https://www.savvytechhotels.com/integraciones) — Native integrations with major PMS and channel managers.
+- **Pricing** — [https://www.savvytechhotels.com/pricing](https://www.savvytechhotels.com/pricing) — Subscription plans by hotel size.
+- **Case Study: Hotel Alcázar de la Reina** — [https://www.savvytechhotels.com/caso-alcazar](https://www.savvytechhotels.com/caso-alcazar) — Documented results from a real Savvy customer.
+- **Blog** — [https://www.savvytechhotels.com/blog](https://www.savvytechhotels.com/blog) — Articles on hotel technology, guest experience, and revenue management.
+- **About Us** — [https://www.savvytechhotels.com/nosotros](https://www.savvytechhotels.com/nosotros) — The team behind Savvy.
+
+## Key facts
+
+- Language: Spanish (primary market: Spain and Latin America)
+- Category: Hotel tech / SaaS / B2B / Guest Experience
+- Integrations: PMS, Channel Manager, WhatsApp Business API
+- Website: https://www.savvytechhotels.com
