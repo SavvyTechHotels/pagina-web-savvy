@@ -112,6 +112,14 @@
     document.getElementById('sav-btn-icon').textContent = 'chat';
   }
 
+  function renderMd(text) {
+    return text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+  }
+
   function addMsg(role, text) {
     var isBot = role === 'bot';
     var container = document.getElementById('sav-msgs');
@@ -127,10 +135,14 @@
       'background:' + (isBot ? '#fff' : '#0e4159'),
       'color:' + (isBot ? '#0f172a' : '#fff'),
       isBot ? 'box-shadow:0 1px 4px rgba(0,0,0,.07)' : '',
-      'white-space:pre-wrap',
+      isBot ? '' : 'white-space:pre-wrap',
       'word-break:break-word'
     ].filter(Boolean).join(';');
-    bubble.textContent = text;
+    if (isBot) {
+      bubble.innerHTML = renderMd(text);
+    } else {
+      bubble.textContent = text;
+    }
     row.appendChild(bubble);
     container.appendChild(row);
     scrollBottom();
