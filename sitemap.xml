@@ -73,14 +73,21 @@
 
   <url>
     <loc>https://www.savvytechhotels.com/pricing</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
+    <loc>https://www.savvytechhotels.com/pricing.md</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://www.savvytechhotels.com/caso-alcazar</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -1,47 +1,125 @@
 # Savvy Tech Hotels
 
+> Last updated: 2026-04-29
+
 ## What is Savvy?
 
-Savvy Tech Hotels is a **B2B SaaS platform for hotels** focused on Guest Experience digitalization. It helps hotels automate the pre-stay journey, recover direct guest contact lost to OTAs, increase ancillary revenue through upselling and cross-selling, and automate review generation — all integrated natively with the hotel's PMS.
+Savvy Tech Hotels is a **B2B SaaS platform for hotels** focused on Guest Experience digitalization. It helps independent hotels, boutique hotels, and small hotel chains automate the pre-stay journey, recover direct guest contact lost to OTAs, increase ancillary revenue through upselling and cross-selling, and automate review generation — all integrated natively with the hotel's PMS.
 
-Savvy is not a booking engine or a PMS. It operates in the "dead zone" between reservation and check-in, turning that silence into a revenue and loyalty opportunity.
+Savvy is not a booking engine or a PMS. It operates in the "dead zone" between reservation and check-in — the period when the guest is at peak buying intent but the hotel is silent. Savvy turns that silence into a revenue and loyalty opportunity.
 
 ## Core value propositions
 
-- **Guest Experience digitalization**: Automated WhatsApp flows before, during, and after the stay.
-- **Revenue increase**: Upselling and cross-selling via a branded guest web app — no app download required.
-- **Review automation**: Automated post-stay flows to generate 5-star reviews on Google and OTA platforms.
-- **Direct contact recovery**: Savvy captures guest data (email, phone) before the OTA does.
-- **Operational efficiency**: Internal team communication and task management built in.
+- **Guest Experience digitalization**: Automated WhatsApp flows before, during, and after the stay — no app download required for guests.
+- **Revenue increase**: Upselling and cross-selling via a branded guest web app. Hotels recover ancillary revenue that was previously going to OTAs or left uncaptured.
+- **Review automation**: Automated post-stay flows to generate 5-star reviews on Google, TripAdvisor, and Booking.com at the moment of peak satisfaction.
+- **Direct contact recovery**: Savvy captures guest data (email, phone) directly — before the OTA does. That data belongs to the hotel, not to Savvy.
+- **Operational efficiency**: Internal team communication and task management built in. Reduces repetitive pre-check-in queries by up to 80%.
 
 ## Target audience
 
-Independent hotels, boutique hotels, and small hotel chains in Spain and Latin America. Decision-makers are hotel managers and revenue managers looking to reduce OTA dependency, improve NPS, and grow direct revenue without adding operational load.
+Independent hotels, boutique hotels, and small hotel chains in Spain and Latin America. Primary decision-makers are hotel managers (directores) and revenue managers looking to:
+- Reduce OTA dependency
+- Improve NPS and guest satisfaction scores
+- Grow ancillary revenue (TrevPAR, GOPPAR) without adding operational load
+- Automate repetitive communication tasks
+- Generate more Google reviews automatically
 
-## Business model
+## Business model & pricing
 
-SaaS, B2B, subscription-based. Pricing by hotel size. Integrates with major PMS and channel managers (Mews, Cloudbeds, SiteMinder, RoomCloud, etc.).
+Savvy operates on a **success-based commission model** — no fixed monthly fees, no upfront investment required.
+
+- **0€ initial investment** — no setup fee, no implementation cost
+- **Commission-based** — Savvy charges only a percentage of the sales generated exclusively through the Savvy guest WebApp (restaurant bookings, spa, late check-out, activities, experiences, etc.)
+- **No commitment** — no minimum term, no permanence clause
+- **Operational in 48h** — full setup and onboarding completed by the Savvy team
+- **If the hotel doesn't earn, Savvy doesn't earn** — fully aligned incentives
+
+Everything is included in the single "Plan Success": Guest App, CRM, Restaurant Booking Engine, WhatsApp Automation, Email Campaigns, PMS Integration, Review Generator, Internal Communications, Experience Providers, Onboarding & Support.
+
+See: https://www.savvytechhotels.com/pricing
+
+## Proven results — Case study: Hotel Alcázar de la Reina (Semana Santa 2025)
+
+The Hotel Alcázar de la Reina (Carmona, Sevilla) used Savvy during Easter Week 2025 — their highest-demand period, with over 90% occupancy.
+
+**Documented outcomes:**
+- **+90% hotel occupancy** — managed at peak capacity without operational collapse
+- **−80% pre-check-in queries** to reception staff during peak days — guests received information proactively before they had to ask
+- **0 hours wasted** on repetitive tasks during the busiest period of the year — reception staff focused entirely on genuine hospitality
+
+**Testimonial (Dirección General, Hotel Alcázar de la Reina):** *"Por primera vez en Semana Santa, mi equipo llegó al check-in del viernes con energía. No tuvieron que apagar ningún fuego porque Savvy se había encargado de que no existiesen."*
+
+See full case study: https://www.savvytechhotels.com/caso-alcazar
+
+## Integrations
+
+Savvy integrates natively with major PMS and Channel Manager platforms:
+- **PMS**: Mews, Cloudbeds, Millennium, and others
+- **Channel Managers**: SiteMinder, RoomCloud, and others
+- **Payments**: Stripe
+- **Messaging**: WhatsApp Business API
+- **Review platforms**: Google, TripAdvisor, Booking.com
+
+If no native integration exists for a specific PMS, Savvy is still operational from day one using alternative connection methods.
+
+See: https://www.savvytechhotels.com/integraciones
+
+## Features — full list
+
+| Feature | Description |
+|---|---|
+| Guest App (WebApp) | Branded web app for upselling and cross-selling. No app download required. |
+| WhatsApp Business Automation | Automated flows before arrival, during stay, and post-stay. |
+| Hotel CRM | Guest profile management, history, preferences, and segmentation. |
+| Review Management | Automated 5-star review generation on Google, TripAdvisor, Booking.com. |
+| Restaurant Booking Engine | Table reservation system integrated with the guest's stay. |
+| Direct Marketing Campaigns | Re-engage OTA guests with direct marketing campaigns. |
+| Experience Providers | Curated local experience recommendations sold via the guest app. |
+| Internal Operations | Internal hotel team communication and task management. |
+| PMS & Channel Manager Integration | Native integrations with major PMS and channel managers. |
+
+## Frequently asked questions
+
+**How long does implementation take?**
+Savvy's team handles the entire setup. The system is fully operational in 48 hours — typically one day. No effort required from the hotel team. No lengthy training sessions. No disruption to existing operations.
+
+**Is Savvy compatible with my PMS or Channel Manager?**
+Savvy is compatible with any PMS and channel manager on the market. If no native integration exists, Savvy is still operational from day one using alternative methods. No waiting, no complex development work.
+
+**How does Savvy protect guest privacy?**
+All guest data is processed under strict GDPR compliance. Data is never shared with third parties. Any guest data captured through Savvy belongs entirely to the hotel — not to Savvy. This is the fundamental difference from OTAs.
+
+**Does the hotel need to install anything?**
+No. Savvy is a cloud SaaS platform. Guests access the WebApp via a link — no app download required. The hotel team accesses the dashboard via browser.
+
+**What happens if Savvy doesn't generate sales?**
+Savvy charges nothing. The model is commission-only on actual sales generated through the platform. If there are no sales, there is no cost.
+
+**Who is Savvy for?**
+Independent hotels, boutique hotels, and small hotel chains in Spain and Latin America with at least 20 rooms. Ideal for properties that want to reduce OTA dependency, automate guest communication, and grow ancillary revenue.
+
+## Language & market
+
+- Primary language: Spanish
+- Primary markets: Spain and Latin America
+- Category: Hotel tech / SaaS / B2B / Guest Experience / Upselling
+- Website: https://www.savvytechhotels.com
 
 ## Main pages
 
-- **Homepage** — [https://www.savvytechhotels.com/](https://www.savvytechhotels.com/) — Platform overview and value proposition.
-- **Guest App (Up/Cross-Selling)** — [https://www.savvytechhotels.com/guest-app](https://www.savvytechhotels.com/guest-app) — Branded web app for upselling and cross-selling to guests before and during their stay.
-- **WhatsApp Automation** — [https://www.savvytechhotels.com/automatizacion](https://www.savvytechhotels.com/automatizacion) — Automated guest communication via WhatsApp Business API.
-- **Direct Marketing Campaigns** — [https://www.savvytechhotels.com/campanas](https://www.savvytechhotels.com/campanas) — Direct marketing campaigns to re-engage OTA guests.
-- **Hotel CRM** — [https://www.savvytechhotels.com/crm](https://www.savvytechhotels.com/crm) — Guest profile management and segmentation.
-- **Review Management** — [https://www.savvytechhotels.com/resenas](https://www.savvytechhotels.com/resenas) — Automated review generation for Google and booking platforms.
-- **Local Experiences Engine** — [https://www.savvytechhotels.com/experiencias](https://www.savvytechhotels.com/experiencias) — Curated local experience recommendations sold via the guest app.
-- **F&B Booking Engine** — [https://www.savvytechhotels.com/restauracion](https://www.savvytechhotels.com/restauracion) — Reservation system for hotel restaurants and F&B services.
-- **Internal Operations** — [https://www.savvytechhotels.com/operaciones](https://www.savvytechhotels.com/operaciones) — Internal hotel team communication and task management.
-- **PMS & Channel Manager Integrations** — [https://www.savvytechhotels.com/integraciones](https://www.savvytechhotels.com/integraciones) — Native integrations with major PMS and channel managers.
-- **Pricing** — [https://www.savvytechhotels.com/pricing](https://www.savvytechhotels.com/pricing) — Subscription plans by hotel size.
-- **Case Study: Hotel Alcázar de la Reina** — [https://www.savvytechhotels.com/caso-alcazar](https://www.savvytechhotels.com/caso-alcazar) — Documented results from a real Savvy customer.
-- **Blog** — [https://www.savvytechhotels.com/blog](https://www.savvytechhotels.com/blog) — Articles on hotel technology, guest experience, and revenue management.
-- **About Us** — [https://www.savvytechhotels.com/nosotros](https://www.savvytechhotels.com/nosotros) — The team behind Savvy.
-
-## Key facts
-
-- Language: Spanish (primary market: Spain and Latin America)
-- Category: Hotel tech / SaaS / B2B / Guest Experience
-- Integrations: PMS, Channel Manager, WhatsApp Business API
-- Website: https://www.savvytechhotels.com
+- **Homepage**: https://www.savvytechhotels.com/ — Platform overview and value proposition
+- **Guest App (Up/Cross-Selling)**: https://www.savvytechhotels.com/guest-app
+- **WhatsApp Automation**: https://www.savvytechhotels.com/automatizacion
+- **Direct Marketing Campaigns**: https://www.savvytechhotels.com/campanas
+- **Hotel CRM**: https://www.savvytechhotels.com/crm
+- **Review Management**: https://www.savvytechhotels.com/resenas
+- **Local Experiences Engine**: https://www.savvytechhotels.com/experiencias
+- **F&B Booking Engine**: https://www.savvytechhotels.com/restauracion
+- **Internal Operations**: https://www.savvytechhotels.com/operaciones
+- **PMS & Channel Manager Integrations**: https://www.savvytechhotels.com/integraciones
+- **Pricing**: https://www.savvytechhotels.com/pricing
+- **Case Study — Hotel Alcázar de la Reina**: https://www.savvytechhotels.com/caso-alcazar
+- **Blog**: https://www.savvytechhotels.com/blog
+- **About Us**: https://www.savvytechhotels.com/nosotros
+- **Machine-readable pricing**: https://www.savvytechhotels.com/pricing.md
